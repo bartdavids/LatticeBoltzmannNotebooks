@@ -18,6 +18,7 @@ Below is a list of the available notebooks. They link to further down this READM
 - [**LBM_in_3D_drag**](#lbm_in_3d_drag): 
 
 ### LBM_in_3D
+![image](https://github.com/bartdavids/LatticeBoltzmannNotebooks/blob/main/Images/LBM_in_3D.gif)
 The original script by MLS is in 2D and I've edited his script to apply to 3D. This simulation is flow over a cylinder, to determine the similarity with the 2D solution. It goes into detail of the steps taken to add the additional dimension. Just like the original LBM script it determines the velocity fields of the simulation. 
 
 So, what is the LBM? I really recommend the LBM video linked above to get you started, but for reference and completeness here it is as well.
