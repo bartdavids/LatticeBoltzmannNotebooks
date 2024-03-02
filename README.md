@@ -18,7 +18,7 @@ Below is a list of the available notebooks. They link to further down this READM
 - [**LBM_in_3D_drag**](#lbm_in_3d_drag): 
 
 ### LBM_in_3D
-The original script by MLS is in 2D and I've edited his script to apply to 3D. This simulation is flow over a cylinder, to determine the similarity with the 2D solution. It goes into detail of the steps taken to add the additional dimension. Just like the original LBM script it determines the velocity and vorticity fields of the simulation. 
+The original script by MLS is in 2D and I've edited his script to apply to 3D. This simulation is flow over a cylinder, to determine the similarity with the 2D solution. It goes into detail of the steps taken to add the additional dimension. Just like the original LBM script it determines the velocity fields of the simulation. 
 
 So, what is the LBM? I really recommend the LBM video linked above to get you started, but for reference and completeness here it is as well.
 
@@ -26,7 +26,10 @@ The LBM is a Computational Flow Dynamics (CFD) application that doesn't model th
 
 ![image](https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-3-031-25787-2_5/MediaObjects/508023_1_En_5_Fig1_HTML.png)
 
-Each lattice is considered a population of particles. How those particles travel along the lattice is determined by the Boltzmann equation, which is a statistical approach to how particles would behave moving towards equilibrium. When a fluid has a certain velocity, not all the water molecules will move in the same direction, or along the same lattice. Some would like to move down all the other directions due to entropy. This behaviour can be approached statistically and the distribution is determined in the collision step of the LBM:
+Each lattice is considered a population of particles. How those particles travel along the lattice is determined by the Boltzmann equation, which is a statistical approach to how particles would behave moving towards equilibrium. When a fluid has a certain velocity, not all the water molecules will move in the same direction, or along the same lattice. Some would like to move down all the other directions due to entropy. 
+
+#### Colission step
+This behaviour can be approached statistically and the distribution is determined in the collision step of the LBM:
 
 ```math
 (1)\quad f_i(\mathbf{x}, t) = f_i(\mathbf{x}, t) - \frac{1}{\tau} \left(f_i(\mathbf{x}, t) - f_i^{eq}(\mathbf{x}, t)\right)
@@ -48,12 +51,21 @@ where:
 - $e_i$ Is the discrete direction of the lattice $i$. The rest lattice is (0, 0, 0), indicating no movement. The lattice moving from the centre towards the right is (1, 0, 0), etc.
 At location $\mathbf{x}$ is implied for clearity of the formula.
 
-Formula's 1 and 2 are the collission step. You can see the equilibrium distribution as the population distribution 
+Formula's 1 and 2 are the collission step. You can see the equilibrium distribution as the population distribution, after a disturbance (like the streaming step), trying to reach equilibrium. How far it gets to equilibrium, is determined by the relaxation time $\tau$.
 
+#### Bounce-back rule
+Now, the collission step is not to be confused with object interaction, which is resolved after the collision step. At the boundary of the object, the velocity of the fluid is 0 and in the LBM we enforce that by replacing the lattice distribution by its opposite lattice distribution. So for each lattice $i$ we set $f_i = f_{\hat{i}}$, where $hat{i}$ is the lattice that has the opposite direction of lattice $i$.
+
+#### Streaming step
+After the collision  and bounce-back steps, is the streaming step. It is a good, descriptive term, because the populations move along their lattice direction ($e_i$) to the next grid point that lattice is pointing towards. The particle populations are streaming to where they are pointed at.
+
+#### Macroscopic properties
 You can get the macroscopic properties at location $\mathbf{x}$ from the population distribution $f_i$ and their direction $e_i$:
 
 $(3)\quad \rho = \sum_{i} f_i$
 
 $(4)\quad \mathbf{u} = \sum_{i} f_i e_{i}$
+
+In conclusion, this gives us the tool to perform the Lattive Boltzmann Method. I'll let the description of the boundary conditions to the notebook. 
 
 ### LBM_in_3D_drag
