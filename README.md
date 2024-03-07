@@ -55,7 +55,7 @@ At location $\mathbf{x}$ is implied for clearity of the formula.
 Formula's 1 and 2 are the collission step. You can see the equilibrium distribution as the population distribution, after a disturbance (like the streaming step), trying to reach equilibrium. How far it gets to equilibrium, is determined by the relaxation time $\tau$.
 
 #### Bounce-back rule
-Now, the collission step is not to be confused with object interaction, which is resolved after the collision step. At the boundary of the object, the velocity of the fluid is 0 and in the LBM we enforce that by replacing the lattice distribution by its opposite lattice distribution. So for each lattice $i$ we set $f_i = f_{\hat{i}}$, where $hat{i}$ is the lattice that has the opposite direction of lattice $i$.
+Now, the collission step is not to be confused with object interaction, which is resolved after the collision step. At the boundary of the object, the velocity of the fluid is 0 and in the LBM we enforce that by replacing the lattice distribution by its opposite lattice distribution. So for each lattice $i$ we set $f_i = f_{\hat{i}}$, where $\hat{i}$ is the lattice that has the opposite direction of lattice $i$.
 
 #### Streaming step
 After the collision  and bounce-back steps, is the streaming step. It is a good, descriptive term, because the populations move along their lattice direction ($e_i$) to the next grid point that lattice is pointing towards. The particle populations are streaming to where they are pointed at.
