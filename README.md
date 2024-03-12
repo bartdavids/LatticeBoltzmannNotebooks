@@ -27,7 +27,7 @@ The LBM is a Computational Flow Dynamics (CFD) application that doesn't model th
 
 ![image](https://media.springernature.com/lw685/springer-static/image/chp%3A10.1007%2F978-3-031-25787-2_5/MediaObjects/508023_1_En_5_Fig1_HTML.png)
 
-Each lattice is considered a population of particles. How those particles travel along the lattice is determined by the Boltzmann equation, which is a statistical approach to how particles would behave moving towards equilibrium. When a fluid has a certain velocity, not all the water molecules will move in the same direction, or along the same lattice. Some would like to move down all the other directions due to entropy. 
+Each lattice is considered a population of particles. How those particles travel along the lattice is determined by the Boltzmann equation, which is a statistical approach to how particles would behave moving towards equilibrium. When a fluid has a certain velocity, not all the water molecules will move in the same direction, or along the same lattice. Some would like to move down all the other directions due to particles bouncing into each other, Brownian motion, etc. 
 
 #### Colission step
 This behaviour can be approached statistically and the distribution is determined in the collision step of the LBM:
@@ -70,3 +70,8 @@ $(4)\quad \mathbf{u} = \sum_{i} f_i e_{i}$
 In conclusion, this gives us the tool to perform the Lattive Boltzmann Method. I'll let the description of the boundary conditions to the notebook. 
 
 ### LBM_in_3D_drag
+This notebook determines the flow around a sphere and from it, determines the drag coefficient ($c_d$) and strain rate tensor. The drag coefficient we determine by:
+
+$c_d = \frac{2F_d}{\rho u^2 A}$
+
+Where $F_d$ is the drag force, or the force acting on the object over the axis we measure the drag over. $A$ is the wet surface of the sphere and $rho$ the denisty of the fluid. Our notation of $u$ is somewhat less buff here, to indicate it is the flow speed of the object, relative to the fluid.
