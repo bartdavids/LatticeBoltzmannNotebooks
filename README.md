@@ -70,8 +70,45 @@ $(4)\quad \mathbf{u} = \sum_{i} f_i e_{i}$
 In conclusion, this gives us the tool to perform the Lattive Boltzmann Method. I'll let the description of the boundary conditions to the notebook. 
 
 ### LBM_in_3D_drag
-This notebook determines the flow around a sphere and from it, determines the drag coefficient ($c_d$) and strain rate tensor. The drag coefficient we determine by:
+This notebook determines the flow around a sphere and from it, determines the force ($F$), drag coefficient ($c_d$), stress tensor ($\sigma$) and strain rate tensor ($\mathbf{S}$). The drag coefficient we determine by:
 
 $c_d = \frac{2F_d}{\rho u^2 A}$
 
-Where $F_d$ is the drag force, or the force acting on the object over the axis we measure the drag over. $A$ is the wet surface of the sphere and $rho$ the denisty of the fluid. Our notation of $u$ is somewhat less buff here, to indicate it is the flow speed of the object, relative to the fluid.
+Where $F_d$ is the drag force, or the force acting on the object over the axis we measure the drag over. $A$ is the wet surface of the sphere and $rho$ the density of the fluid. Our notation of $u$ is somewhat less buff here, to indicate it is the flow speed of the object, relative to the fluid.
+
+Something that should be determined from the simulation is the force $F_d$.
+
+To determine the force in the LBM, we need the total momentum ($\Delta P$) first:
+
+$F = \Delta P/\Delta t$
+
+But since in the way I simulate $\Delta t$ is 1 so far. Units will come into play later! 
+
+$\Delta P =  \displaystyle\sum_i(f_i c_i - f_{\hat{i}} c_{\hat{i}})$
+
+What this means, is that the momentum is determined by the particles going in and out of a specific boundary. Where $f_i c_i$ is the momentum of a population of particles on a specific lattice. To determine the total momentum we sum the populations that go into the boundary, and out of the boundary. Off course, the momentum should only be determined on the boundary of which you want to determine the drag coefficient itself.
+
+The strain rate and stress are not necessary here, but can be important factors in your analysis. Here it is not determined at a specific boundary but in the fluid itself. It is a property of each grid node.
+
+The advantage of using LBM for determining the stress tensor, is that it can be determined locally (i.e. no need to look at the neighbouring nodes) by ([source](https://arxiv.org/pdf/0812.3242.pdf)):
+
+$σ_{\alpha \beta} = (1-\frac{1}{2\tau}) *  \displaystyle\sum_{i}c_{i \alpha}c_{i \beta} f^{neq}_{i}$
+
+where $f^{neq}$ is the non-equilibrium discrete velocities defined by:
+$f^{neq} = f - f^{eq}$
+
+The subscripts $\alpha$ and $\beta$ are the axes (x, y, z) per the rows and columns in the stress tensor:
+```math
+\begin{equation*}
+\sigma =
+\begin{bmatrix}
+\sigma_{xx} & \sigma_{xy} & \sigma_{xz} \\
+\sigma_{yx} & \sigma_{yy} & \sigma_{yz} \\
+\sigma_{zx} & \sigma_{zy} & \sigma_{zz}
+\end{bmatrix}
+\end{equation*}
+```
+
+The strain rate tensor can be determined from the stress $2 \nu S = \sigma$, where $\nu$ is the kinematic viscosity. The stress is a complete discription of the forces acting in your fluid, and the strain rate tensor is the rate of deformation that your fluid experiences because of that stress.
+
+In this notebook $\mathbf{S}$ is determined via the Lattice Boltzmann method and a numerical scheme based on the macroscopic velocities for validation and comparison.
