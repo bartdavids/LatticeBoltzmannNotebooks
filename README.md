@@ -70,6 +70,7 @@ $(4)\quad \mathbf{u} = \sum_{i} f_i e_{i}$
 In conclusion, this gives us the tool to perform the Lattive Boltzmann Method. I'll let the description of the boundary conditions to the notebook. 
 
 ### LBM_in_3D_drag
+![image](https://github.com/bartdavids/LatticeBoltzmannNotebooks/blob/main/Images/LBM_in_3D_drag.gif)
 This notebook determines the flow around a sphere and from it, determines the force ($F$), drag coefficient ($c_d$), stress tensor ($\sigma$) and strain rate tensor ($\mathbf{S}$). The drag coefficient we determine by:
 
 $c_d = \frac{2F_d}{\rho u^2 A}$
