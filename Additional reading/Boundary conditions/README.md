@@ -17,4 +17,13 @@ You can set the velocity as the macroscopic variable, but in the LBM, we are not
 
 $\quad \rho = \sum_{i} f_i$
 
-$\quad \mathbf{u} = \sum_{i} f_i e_{i}$
+$\quad \rho\mathbf{u} = \sum_{i} f_i e_{i}$
+
+It is important to note that the density should be seen more as the amount of particles at the lattice node than the physical density that is a unit of mass over a volume (like $kg/m^3$). 
+
+When setting your $\mathbf{u}\_{\alpha}$, you want to set the $f_i$ that influence the flow in the direction $\alpha$. Let's call these populations $f_{\alpha^+}$. The populations going out of your domain are than $f_{\alpha^-}$ and the velocities where $e_{\alpha} = 0$ are $f_{\alpha^0}$. 
+
+When we assume $f_i = f_{\hat{i}}$ we can determine the 
+
+When we assume $f_i - f_{\hat{i}} = f_i^{eq} - f_{\hat{i}}^{eq}$ you can determine the unknown $f_{\alpha^+}$ with:
+
