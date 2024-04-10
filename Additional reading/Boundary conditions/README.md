@@ -15,15 +15,34 @@ First, let's get into the setting of the velocity boundary condition. We set $\m
 
 You can set the velocity as the macroscopic variable, but in the LBM, we are not thinking in the macroscopic variables, but in populations of particles along a lattice, $f_i$. for more on the meaning of the lattice variables $e_i$ and $f_i$ you can checkout the README file [here](https://github.com/bartdavids/LatticeBoltzmannNotebooks). The relationship between the macorscopic variables are:
 
-$\quad \rho = \sum_{i} f_i$
+$(1) \quad \rho = \sum_{i} f_i$
 
-$\quad \rho\mathbf{u} = \sum_{i} f_i e_{i}$
-
+$(2) \quad \rho\mathbf{u} = \sum_{i} f_i e_{i}$
+[better like this, page 13](https://www.researchgate.net/profile/Joshua-White-35/publication/225148759_Calculating_the_effective_permeability_of_sandstone_with_multiscale_lattice_Boltzmannfinite_element_simulations/links/56cb387a08ae1106370b7b91/Calculating-the-effective-permeability-of-sandstone-with-multiscale-lattice-Boltzmann-finite-element-simulations.pdf)
 It is important to note that the density should be seen more as the amount of particles at the lattice node than the physical density that is a unit of mass over a volume (like $kg/m^3$). 
 
-When setting your $\mathbf{u}\_{\alpha}$, you want to set the $f_i$ that influence the flow in the direction $\alpha$. Let's call these populations $f_{\alpha^+}$. The populations going out of your domain are than $f_{\alpha^-}$ and the velocities where $e_{\alpha} = 0$ are $f_{\alpha^0}$. 
+When setting your $\mathbf{u}\_{\alpha}$, you want to set the $f_i$ that influence the flow in the direction $\alpha$. Let's call these populations $f_{\alpha^+}$. The populations going out of your domain are than $f_{\alpha^-}$ and the tangental populations where $e_{\alpha} = 0$ are $f_{\alpha^0}$. Following formula 2, where $\mathbf{u}$ is a vector containing $u_x$, $u_y$ and $u_z$ following:
 
-When we assume $f_i = f_{\hat{i}}$ we can determine the 
+$\rho\mathbf{u}\_{\alpha} = \sum_{i^+}f_i - \sum_{i^-}f_i$
+
+This is also the case for the equilibrium velocities:
+
+$\rho\mathbf{u}\_{\alpha} = \sum_{i^+}f_i^{eq} - \sum_{i^-}f_i^{eq}$
+
+Therefore:
+
+$$\sum_{i^+}f_i - \sum_{i^-}f_i = \sum_{i^+}f_i^{eq} - \sum_{i^-}f_i^{eq}$$ 
+
+and:
+
+$$(3) \sum_{i^+}f_i = \sum_{i^+}f_i^{eq} + \left(\sum_{i^-}f_i- \sum_{i^-}f_i^{eq}\right)$$
+
+Zou and He observed that if one assumes $f_i - f_{\hat{i}} = f_i^{eq} - f_{\hat{i}}^{eq}$ this is automatically true. 
+
+When we set the tangental velocities (the velocities that are not $u_{\alpha}$) to 0, 3 reduces to:
+$ \sum_{i^+}f_i = \sum_{i^+}f_i^{eq} + 1
+
+$$\rho = \frac{1}{1-u_x}\left(\sum_{i^0}f_i + 2\sum_{i^-}f_i\right)$$
 
 When we assume $f_i - f_{\hat{i}} = f_i^{eq} - f_{\hat{i}}^{eq}$ you can determine the unknown $f_{\alpha^+}$ with:
 
